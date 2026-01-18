@@ -13,4 +13,7 @@ RUN if [ -f ./go.mod ]; then \
 RUN go install github.com/air-verse/air@v1.64.0
 RUN go install honnef.co/go/tools/cmd/staticcheck@latest
 
+# マイグレーション用のatlasをインストール
+RUN curl -sSf https://atlasgo.sh | sh
+
 EXPOSE 8080

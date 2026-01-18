@@ -82,6 +82,7 @@ DELETE FROM users WHERE id = 1;
 GUIで各種DB操作をしたい場合、OSSにPostgreSQL用のDBクライアントツール「pgAdmin 4」があります。  
 PCがMacかつパッケージ管理に「Homebrew」を使っている場合は、以下のコマンドで簡単にインストール可能です。  
   
+### 1. インストール方法
 ・「Homebrew」の最新化
 ```
 brew update
@@ -91,6 +92,24 @@ brew update
 ```
 brew install --cask pgadmin4
 ```
+  
+### 2. 接続設定
+DBの接続設定は環境変数「.env」ファイルの内容を利用します。  
+```
+Host name/address: localhost
+Port: 5432
+Maintenance database: local-db-name
+Username: local-db-user
+Password: local-db-password
+Save password?: Yes（有効化する）
+```
+  
+### 3. SQLを実行したい場合
+画面左のツリーから対象DB（例：go-pg-db > Database(2) > local-db-name）を右クリックしてメニューを開き、「Query Tool」をクリックするとSQL実行用の画面が開けます。  
+  
+SQLを記述後、画面上のメニューにある実行ボタン「▶︎」（左側のExecute scriptボタンは記述内容を全て実行するやつで、右側のExecute queryボタンは単一のSQLを実行するやつです）をクリックしてください。  
+  
+> ※デフォルトではオートコミット設定になっています。
   
 <br>
   

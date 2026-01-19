@@ -264,7 +264,7 @@ func main() {
 	})
 
 	// ログ出力
-	slog.Info("start go-pg-atlas-bun")
+	slog.Info("start go-pg-bun")
 
 	// サーバー起動
 	e.Logger.Fatal(e.Start(":8080"))

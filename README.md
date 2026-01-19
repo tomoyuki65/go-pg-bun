@@ -1,4 +1,4 @@
-# Go言語からPostgreSQLを使うためのサンプル
+# Go言語からPostgreSQLとORM「Bun」を使うためのサンプル
 Docker環境でGo言語（Golang）からDBにPostgreSQL、マイグレーションやORMにBunを使う方法についてのサンプルです。  
   
 <br>

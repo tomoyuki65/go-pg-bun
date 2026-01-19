@@ -9,8 +9,8 @@ import (
 	"github.com/uptrace/bun/migrate"
 	"github.com/urfave/cli/v2"
 
-	"go-pg-atlas-bun/internal/infrastructure/database"
-	"go-pg-atlas-bun/internal/infrastructure/migration/migrations"
+	"go-pg-bun/internal/infrastructure/database"
+	"go-pg-bun/internal/infrastructure/migration/migrations"
 )
 
 func main() {

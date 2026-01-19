@@ -1,4 +1,4 @@
-module go-pg-atlas-bun
+module go-pg-bun
 
 go 1.25.5
 

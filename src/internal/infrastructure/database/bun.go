@@ -32,12 +32,12 @@ func NewBunDB() *bun.DB {
 		dbPort = "5432"
 	}
 
+	if dbName = os.Getenv("DB_NAME"); dbName == "" {
+		dbName = "local-db-name"
+	}
+
 	if env == "testing" {
 		dbName = "testing-db"
-	} else {
-		if dbName = os.Getenv("DB_NAME"); dbName == "" {
-			dbName = "local-db-name"
-		}
 	}
 
 	if dbUser = os.Getenv("DB_USER"); dbUser == "" {

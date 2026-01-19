@@ -149,10 +149,55 @@ docker compose exec api go run cmd/migrate/main.go rollback
   
 <br>
   
-## サンプルAPIのエンドポイント
-- xxx
-- xxx
-- xxx
-- xxx
+## コード修正後に使うコマンド
+ローカルサーバー起動中に以下のコマンドを実行可能です。  
   
+### 1. go.modの修正
+```
+docker compose exec api go mod tidy
+```  
+  
+### 2. フォーマット修正
+```
+docker compose exec api go fmt ./...
+```  
+  
+### 3. コード解析チェック
+```
+docker compose exec api staticcheck ./...
+```  
+  
+<br>
+  
+## サンプルAPIのエンドポイント
+Base URL: http://localhost:8080  
+  
+- GET /  
+ルート（Hello World）  
+  
+- POST /api/v1/users  
+  ユーザーを作成  
+  
+- GET /api/v1/users  
+  全てのユーザーを取得  
+  
+- GET /api/v1/users/sql  
+  全てのユーザーを取得（SQL版）  
+
+- GET /api/v1/users/:id  
+  対象ユーザー取得  
+  
+- GET /api/v1/users/:id/sql  
+  対象ユーザー取得（SQL版）  
+  
+- PUT /api/v1/users/:id  
+  対象ユーザー更新  
+  
+- DELETE /api/v1/users/:id  
+  対象ユーザー削除
+  
+<br>
+  
+## 参考記事  
+[・DockerとGo言語（Golang）からPostgreSQLとORM「Bun」を使う方法](https://golang.tomoyuki65.com/how-to-use-postgresql-with-docker-and-golang)  
   

@@ -6,7 +6,7 @@ import (
 	"github.com/uptrace/bun"
 )
 
-type UserSchema struct {
+type UsersSchema struct {
 	// テーブル名とエイリアスを設定
 	bun.BaseModel `bun:"table:users,alias:u"`
 

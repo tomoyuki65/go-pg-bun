@@ -29,6 +29,6 @@ type OrdersSchema struct {
 	UpdatedAt time.Time `bun:"updated_at,notnull,default:current_timestamp"`
 
 	// リレーションの設定
-	Customer *UserSchema `bun:"rel:belongs-to,join:customer_id=id"`
+	Customer     *UsersSchema          `bun:"rel:belongs-to,join:customer_id=id"`
 	OrderDetails []*OrderDetailsSchema `bun:"rel:has-many,join:id=order_id"`
 }

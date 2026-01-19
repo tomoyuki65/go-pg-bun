@@ -29,6 +29,8 @@ services:
       POSTGRES_INITDB_ARGS: --auth-local=scram-sha-256 --auth-host=scram-sha-256
     volumes:
       - db-data:/var/lib/postgresql
+      # 初回起動時にSQLを実行する設定
+      # - ./docker/local/db/init:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     env_file:

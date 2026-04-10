@@ -14,7 +14,7 @@ import (
 )
 
 // NewDB はBunのDB接続インスタンスを生成します
-func NewBunDB() *bun.DB {
+func NewBunDB() (*bun.DB, error) {
 	// 環境変数「ENV」の値を取得
 	env := os.Getenv("ENV")
 	if env == "" {
@@ -71,6 +71,10 @@ func NewBunDB() *bun.DB {
 	// sql.DB の初期化（pgdriverを使用）
 	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(dsn)))
 
+	if err := sqldb.Ping(); err != nil {
+		return nil, err
+	}
+
 	// コネクションプールの設定
 	maxOpenCons, _ := strconv.Atoi(dbMaxOpenCons) // 最大接続数
 	sqldb.SetMaxOpenConns(maxOpenCons)
@@ -92,5 +96,5 @@ func NewBunDB() *bun.DB {
 		))
 	}
 
-	return db
+	return db, nil
 }

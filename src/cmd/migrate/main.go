@@ -14,8 +14,11 @@ import (
 )
 
 func main() {
-	// DBインスタンスを取得
-	db := database.NewBunDB()
+	//　DBインスタンスの取得
+	db, err := database.NewBunDB()
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer db.Close()
 
 	// マイグレーション用ツール設定

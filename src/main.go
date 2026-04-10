@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
+	"os"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -26,6 +27,14 @@ func main() {
 		return c.JSON(http.StatusOK, res)
 	})
 
+	//　DBインスタンスの取得
+	db, err := database.NewBunDB()
+	if err != nil {
+		slog.Error(fmt.Sprintf("failed to get db instance: %v", err))
+		os.Exit(1)
+	}
+	defer db.Close()
+
 	// サンプルAPI（CRUD処理）を追加
 	apiV1 := e.Group("/api/v1")
 
@@ -40,10 +49,6 @@ func main() {
 		if err := c.Bind(&reqBody); err != nil {
 			return err
 		}
-
-		//　DBインスタンスの取得
-		db := database.NewBunDB()
-		defer db.Close()
 
 		// ユーザー作成処理
 		user := schema.UsersSchema{
@@ -61,10 +66,6 @@ func main() {
 
 	// 全てのユーザー取得
 	apiV1.GET("/users", func(c echo.Context) error {
-		//　DBインスタンスの取得
-		db := database.NewBunDB()
-		defer db.Close()
-
 		// 全てのユーザー取得処理
 		var users []schema.UsersSchema
 		err := db.NewSelect().Model(&users).Scan(c.Request().Context())
@@ -82,10 +83,6 @@ func main() {
 
 	// 全てのユーザー取得（SQL版）
 	apiV1.GET("/users/sql", func(c echo.Context) error {
-		//　DBインスタンスの取得
-		db := database.NewBunDB()
-		defer db.Close()
-
 		// 全てのユーザー取得処理
 		var users []schema.UsersSchema
 		err := db.NewRaw("SELECT * FROM users").Scan(c.Request().Context(), &users)
@@ -109,10 +106,6 @@ func main() {
 			return echo.NewHTTPError(http.StatusBadRequest, "id is required")
 		}
 
-		//　DBインスタンスの取得
-		db := database.NewBunDB()
-		defer db.Close()
-
 		// 対象ユーザー取得処理
 		var user schema.UsersSchema
 		err := db.NewSelect().Model(&user).Where("id = ?", id).Scan(c.Request().Context())
@@ -134,10 +127,6 @@ func main() {
 		if id == "" {
 			return echo.NewHTTPError(http.StatusBadRequest, "id is required")
 		}
-
-		//　DBインスタンスの取得
-		db := database.NewBunDB()
-		defer db.Close()
 
 		// 対象ユーザー取得処理
 		var user schema.UsersSchema
@@ -170,10 +159,6 @@ func main() {
 		if err := c.Bind(&reqBody); err != nil {
 			return err
 		}
-
-		//　DBインスタンスの取得
-		db := database.NewBunDB()
-		defer db.Close()
 
 		// DB操作（トランザクション有り）
 		tx, err := db.Begin()
@@ -224,10 +209,6 @@ func main() {
 		if id == "" {
 			return echo.NewHTTPError(http.StatusBadRequest, "id is required")
 		}
-
-		//　DBインスタンスの取得
-		db := database.NewBunDB()
-		defer db.Close()
 
 		// DB操作（トランザクション有り）
 		tx, err := db.Begin()
